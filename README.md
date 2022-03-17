@@ -1,5 +1,5 @@
 # MATH435 Math in the City
-## Patient V
+## Patient Zero Vaccination Strategy
 
 The following project is a mathematical model that describes a hypothetical vaccination strategy called **Patient V**, whereby instead of having a traditional model of vaccination, we introduce an infected patient with a strain of virus that competes with the existing strain with a higher infection rate but a with a lower death rate. <br>
 
@@ -25,3 +25,6 @@ Using the outcomes of the models, we would try to estimate the costs of each of 
 
 ### 01 COVID19 Ledder
 This is the **SEAIHRD** Epidemic Model developed by Dr. Glenn Ledder to study the Covid19 epidemic in the initial rollout of vaccination and the onset of the Delta Variant. Our baseline model is going to be largely based on the following code.
+
+### 02 Normal vaccination
+This is Vaccination Model that we developed that complements the Patient Zero Vaccination Model, with realistic distribution of vaccination and the resulting outcomes such as deaths, hosptitalization etc. 
