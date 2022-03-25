@@ -31,8 +31,10 @@ th = 10; % time spent in H
 K = 0.25;
 V_1 = 0.03*S_P_0;
 
+maxdays = 1000;
+
 %% Initialization
-S_P_0 = 1000; % Total susceptibles
+S_P_0 = 1000;
 S_0 = r*s_P_0;
 P_0 = S_P_0 - S_0;
 E_0 = 0;
@@ -42,17 +44,6 @@ H_0 = 0;
 R_0 = 0;
 D_0 = 0;
 
-% output results is a matrix with columns [t P S E A I R H D W V]
-Tmax = 1000;
-T0 = 0;
-target = 0.001;
-dt = 0.1;
-N_Iter = ceil((Tmax-T0)/dt);
-dt = (Tmax-T0)/N_Iter;
-results = zeros(N_Iter+1,11);
-results(1,:) = [T0,S0,E0,I0];
-results(:,1) = [T0:dt:Tmax]';
-
 
 %% Derived parameters
 W_0 = 1-r; % Initial number of those wanting to get vaccinated
@@ -60,21 +51,6 @@ eta = 1/te;
 alpha = 1/ta;
 sigma = 1/ti;
 gamma = 1/th;
-
-
-%% COMPUTATION
-for i=1:N_Iter
-    % y is a column vector [t P S E A I R H D W V]_OLD
-    y = results(i,2:11)'; E_old = y(2); I_old = y(3);
-    t = results(i,1);
-    y = RK4(t,dt,y);
-    results(i+1,2:4) = y';
-    if y(2)/N < target
-        % pandemic ends or is stable
-        results = results(1:(i+1),:);
-        break;
-    end
-end
 
 %% FUNCTION FOR 4th order Runge-Kutta
 
@@ -87,22 +63,20 @@ end
         k4 = yprime(t+dt,y0+dt*k3);
         y = y0+dt*(k1+2*k2+2*k3+k4)/6;
     end
-end
 
+%% COMPUTATION
 
-%% FUNCTION FOR THE DIFFERENTIAL EQUATION
-
-    function yp=yprime(t,y)
-    % split out components
-        S = y(1);
-        E = y(2);
-        I = y(3);
-    % compute derivatives
-        Sp = -beta*S*I;
-        Ep = -Sp-eta*E;
-        Ip = eta*E-alpha*I;
-    % assemble derivative
-        yp = [Sp;Ep;Ip];
+for i=1:N_Iter
+    % y is a column vector [S_old ; I_old]
+    y = results(i,2:4)'; E_old = y(2); I_old = y(3);
+    t = results(i,1);
+    y = RK4(t,dt,y);
+    results(i+1,2:4) = y';
+    if y(2)/N < target
+        % pandemic ends or is stable
+        results = results(1:(i+1),:);
+        break;
     end
-
+end
+end
 
