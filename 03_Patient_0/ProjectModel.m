@@ -4,29 +4,27 @@ close all
 clc
 
 % Declare rates
-beta1 = 0;
-beta2 = 0;
-alpha1 = 0;
-alpha2 = 0;
-eta1 = 0;
-eta2 = 0;
-sigma1 = 0;
-sigma2 = 0;
-gamma1 = 0;
-gamma2 = 0;
-x1 = 0;
-x2 = 0;
+beta1 = .5;
+beta2 = .2;
+alpha1 = .3;
+alpha2 = .4;
+eta1 = .5;
+eta2 = .1;
+sigma1 = .2;
+sigma2 = .3;
+gamma1 = .4;
+gamma2 = .5;
 
 % Declare proportions
-p1 = 0;
-p2 = 0;
-m1 = 0;
-m2 = 0;
-c1 = 0;
-c2 = 0;
+p1 = .25;
+p2 = .4;
+m1 = .3;
+m2 = .7;
+c1 = .9;
+c2 = .1;
 
 % Declare initial size of classes
-S = 0;
+S = 100;
 E1 = 0;
 E2 = 0;
 I1 = 0;
@@ -38,30 +36,30 @@ H2 = 0;
 D1 = 0;
 D2 = 0;
 R = 0;
-T = 3;
+T = 60;
 
 % Define the model
-function dy = SEIAHDR(t, y, beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, x1, x2, p1, p2, m1, m2, c1, c2)
-    dy = zeros(12, 1); % Store the derivatives
-    x1 = y(6); % x1 term
-    x2 = y(7); % x2 term
+function dy = SEIAHDR(t, y, beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, p1, p2, m1, m2, c1, c2)
+    dy = zeros(14, 1); % Store the derivatives
+    x1 = .5; % x1 term
+    x2 = .5; % x2 term
     dy(1) = -beta1 * x1 * y(1) - beta2 * x2; % S term
     dy(2)  = beta1 * x1 * y(1) - eta1 * y(2); % E1 term
     dy(3) = beta2 * x2 * y(1) - eta2 * y(3); % E2 term
     dy(4) = eta1 * (1 - p1) * y(2) - alpha1 * y(4); % A1 term
-    dy(5) = eta2 * (1-p2) * y(3) - alpha2 * y(5); % A2 term
+    dy(5) = eta2 * (1 - p2) * y(3) - alpha2 * y(5); % A2 term
     dy(6) = p1 * eta1 * y(2) - sigma1 * y(6); % I1 term
     dy(7) = p2 * eta2 * y(3) - sigma2 * y(7); % I2 term
     dy(8) = c1 * sigma1 - gamma1 * y(8); % H1 term
     dy(9) = c2 * sigma2 - gamma2 * y(9); % H2 term
     dy(10) = m1 * gamma1 * y(10); % D1 term
     dy(11) = m2 * gamma2 * y(11); % D2 term
-    dy(12) = (1 - m1) * gamma1 * y(8) + (1 - c1) * sigma1 * y(6) + sigma1 * y(4) + (1 - m2) * gamma2 * y(9) + (1 - c2) * sigma2 * y(7) + sigma2 + y(5); % R term
+    dy(12) = (1 - m1) * gamma1 * y(8) + (1 - c1) * sigma1 * y(6) + sigma1 * y(4) + (1 - m2) * gamma2 * y(9) + (1 - c2) * sigma2 * y(7) + sigma2 * y(5); % R term
 
 end
 
 % use Matlab built-in function to calculate the solutions
-[sim_t, sim_y] = ode45(@(t,y)(SEIAHDR(t,y,beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, x1, x2, p1, p2, m1, m2, c1, c2)),[0 T],[S;E1;E2;A1;A2;I1;I2;H1;H2;D1;D2;R]);
+[sim_t, sim_y] = ode45(@(t,y)(SEIAHDR(t,y,beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, p1, p2, m1, m2, c1, c2)),[0 T],[S;E1;E2;A1;A2;I1;I2;H1;H2;D1;D2;R;0;0]);
 sim_S = sim_y(:,1);
 sim_E1 = sim_y(:,2);
 sim_E2 = sim_y(:,3);
