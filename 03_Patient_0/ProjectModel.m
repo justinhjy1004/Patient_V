@@ -40,7 +40,7 @@ T = 60;
 
 % Define the model
 function dy = SEIAHDR(t, y, beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, p1, p2, m1, m2, c1, c2)
-    dy = zeros(14, 1); % Store the derivatives
+    dy = zeros(12, 1); % Store the derivatives
     x1 = .5; % x1 term
     x2 = .5; % x2 term
     dy(1) = -beta1 * x1 * y(1) - beta2 * x2; % S term
@@ -58,8 +58,9 @@ function dy = SEIAHDR(t, y, beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, ga
 
 end
 
-% use Matlab built-in function to calculate the solutions
-[sim_t, sim_y] = ode45(@(t,y)(SEIAHDR(t,y,beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, p1, p2, m1, m2, c1, c2)),[0 T],[S;E1;E2;A1;A2;I1;I2;H1;H2;D1;D2;R;0;0]);
+% Use Matlab function to calculate the solutions
+[sim_t, sim_y] = ode45(@(t,y)(SEIAHDR(t,y,beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, p1, p2, m1, m2, c1, c2)), + ...
+    [0 T],[S;E1;E2;A1;A2;I1;I2;H1;H2;D1;D2;R]);
 sim_S = sim_y(:,1);
 sim_E1 = sim_y(:,2);
 sim_E2 = sim_y(:,3);
@@ -73,6 +74,7 @@ sim_D1 = sim_y(:,10);
 sim_D2 = sim_y(:,11);
 sim_R = sim_y(:,12);
 
+% Plot and label
 figure; hold on;
 plot(sim_t, sim_S, 'linewidth',.5);
 plot(sim_t, sim_E1, 'linewidth',.5);
@@ -86,7 +88,7 @@ plot(sim_t, sim_H2, 'linewidth',.5);
 plot(sim_t, sim_D1, 'linewidth',.5);
 plot(sim_t, sim_D2, 'linewidth',.5);
 plot(sim_t, sim_R, 'linewidth',.5);
-% legend({'simulation S(t)','simulation E(t)','simulation I(t)','simulation R(t)'},'FontSize',12)
+legend({'S(t)','E1(t)','E2(t)','A1(t)','A2(t)','I1(t)','I2(t)','H1(t)','H2(t)','D1(t)','D2(t)','R(t)'},'FontSize',8)
 xlabel('Time(days)','FontSize',12);
 ylabel('People','FontSize',12);
 end
