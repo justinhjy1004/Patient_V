@@ -26,7 +26,7 @@ c2 = .5;
 % Declare initial size of classes
 S = 300;
 E1 = 10;
-E2 = 100;
+E2 = 10;
 I1 = 10;
 I2 = 10;
 A1 = 10;
@@ -84,25 +84,27 @@ figure; hold on;
 
 %% Test run
 figure(1)
-plot(sim_t, sim_S, 'linewidth', 1);
-plot(sim_t, sim_E1, 'linewidth', 1);
-plot(sim_t, sim_A1, 'linewidth',1);
-plot(sim_t, sim_I1, 'linewidth', 1);
-plot(sim_t, sim_H1, 'linewidth', 1);
-plot(sim_t, sim_D1, 'linewidth', 1);
-plot(sim_t, sim_R, 'linewidth', 1);
-legend({'S(t)','E1(t)','A1(t)','I1(t)','H1(t)','D1(t)','R(t)'},'FontSize',8)
+plot(sim_t, sim_S, 'linewidth', .5);
+plot(sim_t, sim_E1, 'linewidth', .5);
+plot(sim_t, sim_I1, 'linewidth', .5);
+
+
 
 figure(2)
-plot(sim_t, sim_S, 'linewidth',1);
+plot(sim_t, sim_S, 'linewidth',.5);
 hold on
-plot(sim_t, sim_E2, 'linewidth',1);
-plot(sim_t, sim_A2, 'linewidth',1);
-plot(sim_t, sim_I2, 'linewidth',1);
-plot(sim_t, sim_H2, 'linewidth',1);
-plot(sim_t, sim_D2, 'linewidth',1);
-plot(sim_t, sim_R, 'linewidth',1);
-legend({'S(t)','E2(t)','A2(t)','I2(t)','H2(t)','D2(t)','R(t)'},'FontSize',8)
+plot(sim_t, sim_E1, 'linewidth',.5);
+plot(sim_t, sim_E2, 'linewidth',.5);
+plot(sim_t, sim_A1, 'linewidth',.5);
+plot(sim_t, sim_A2, 'linewidth',.5);
+plot(sim_t, sim_I1, 'linewidth',.5);
+plot(sim_t, sim_I2, 'linewidth',.5);
+plot(sim_t, sim_H1, 'linewidth',.5);
+plot(sim_t, sim_H2, 'linewidth',.5);
+plot(sim_t, sim_D1, 'linewidth',.5);
+plot(sim_t, sim_D2, 'linewidth',.5);
+plot(sim_t, sim_R, 'linewidth',.5);
+%legend({'S(t)','E1(t)','E2(t)','A1(t)','A2(t)','I1(t)','I2(t)','H1(t)','H2(t)','D1(t)','D2(t)','R(t)'},'FontSize',8)
 xlabel('Time(days)','FontSize',12);
 ylabel('People','FontSize',12);
 end
