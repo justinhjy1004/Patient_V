@@ -4,20 +4,20 @@ close all
 clc
 
 % Declare rates
-beta1 = .05;
-beta2 = .05;
-alpha1 = .03;
-alpha2 = .04;
-eta1 = .05;
-eta2 = .05;
+beta1 = .01;
+beta2 = .01;
+alpha1 = .05;
+alpha2 = .05;
+eta1 = .09;
+eta2 = .01;
 sigma1 = .05;
 sigma2 = .05;
-gamma1 = .04;
+gamma1 = .01;
 gamma2 = .05;
 
 % Declare proportions
-p1 = .5;
-p2 = .5;
+p1 = .9;
+p2 = .1;
 m1 = .5;
 m2 = .5;
 c1 = .5;
@@ -38,7 +38,7 @@ D2 = 10;
 R = 0;
 
 % Delare time
-T = 60;
+T = 90;
 
 % Define the model
 function dy = SEIAHDR(t, y, beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, p1, p2, m1, m2, c1, c2)
@@ -82,16 +82,17 @@ sim_R = sim_y(:,12);
 % Plot and label
 figure; hold on;
 
-%% Test run
 figure(1)
-plot(sim_t, sim_S, 'linewidth', 1);
-plot(sim_t, sim_E1, 'linewidth', 1);
+plot(sim_t, sim_S, 'linewidth',1);
+plot(sim_t, sim_E1, 'linewidth',1);
 plot(sim_t, sim_A1, 'linewidth',1);
-plot(sim_t, sim_I1, 'linewidth', 1);
-plot(sim_t, sim_H1, 'linewidth', 1);
-plot(sim_t, sim_D1, 'linewidth', 1);
+plot(sim_t, sim_I1, 'linewidth',1);
+plot(sim_t, sim_H1, 'linewidth',1);
+plot(sim_t, sim_D1, 'linewidth',1);
 plot(sim_t, sim_R, 'linewidth', 1);
 legend({'S(t)','E1(t)','A1(t)','I1(t)','H1(t)','D1(t)','R(t)'},'FontSize',8)
+xlabel('Time(days)','FontSize',12);
+ylabel('People','FontSize',12);
 
 figure(2)
 plot(sim_t, sim_S, 'linewidth',1);
