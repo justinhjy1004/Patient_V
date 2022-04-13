@@ -95,8 +95,8 @@ plot(sim_t, sim_D1, 'linewidth',1);
 plot(sim_t, sim_R, 'linewidth', 1);
 legend({'S(t)','E1(t)','A1(t)','I1(t)','H1(t)','D1(t)','R(t)'},'FontSize',8)
 title('Spread of Existing Strain','FontSize', 12)
-xlabel('Time (days)','FontSize',12);
-ylabel('People (millions)','FontSize',12);
+xlabel('Time(days)','FontSize',12);
+ylabel('People','FontSize',12);
 
 figure(2)
 plot(sim_t, sim_S, 'linewidth',1);
@@ -109,17 +109,14 @@ plot(sim_t, sim_D2, 'linewidth',1);
 plot(sim_t, sim_R, 'linewidth',1);
 legend({'S(t)','E2(t)','A2(t)','I2(t)','H2(t)','D2(t)','R(t)'},'FontSize',8)
 title('Spread of Vaccine Strain','FontSize', 12)
-xlabel('Time (days)','FontSize',12);
-ylabel('People (million)','FontSize',12);
+xlabel('Time(days)','FontSize',12);
+ylabel('People','FontSize',12);
 
 figure(3)
 plot(sim_t, sim_D1,'linewidth', 1);
 hold on
 plot(sim_t, sim_D2,'linewidth', 1);
 plot(sim_t, sim_D1 + sim_D2, 'linewidth', 1);
-legend({'Existing Strain Deaths','"Patient 0" Strain Deaths','Total Deaths'},'FontSize',8)
-title('Death Comparison','FontSize', 12)
-xlabel('Time (days)','FontSize',12);
-ylabel('People (millions)','FontSize',12);
+legend({'D1(t)','E2()','A2(t)','I2(t)','H2(t)','D2(t)','R(t)'},'FontSize',8)
 end
 
