@@ -1,27 +1,27 @@
 function ProjectModel
-clear all
+clear
 close all
 clc
 
 % Declare rates
-beta1 = .25; %Rate of exposure
-beta2 = .5;
+beta1 = .005; %Rate of exposure
+beta2 = beta1 * 3;
 alpha1 = .125; %Rate of recovery
 alpha2 = .125;
 eta1 = .5; %Rate of infection
 eta2 = .5;
-sigma1 = .00746 %Rate of recovery/hospitalization from I class
-sigma2 = .00746;
+sigma1 = .0746; %Rate of recovery/hospitalization from I class
+sigma2 = .0746;
 gamma1 = .1163; % Rate of death
 gamma2 = .1163;
 
 % Declare proportions
 p1 = .65;
 p2 = .65;
-m1 = .093;
-m2 = .01;
+m1 = .07;
+m2 = m1 / 3;
 c1 = .0323;
-c2 = .01;
+c2 = c1 / 3;
 
 % Declare initial size of classes
 S = 315;
@@ -38,10 +38,10 @@ D2 = 0;
 R = 11;
 
 % Delare time
-T = 90;
+T = 120;
 
 % Define the model
-function dy = SEIAHDR(t, y, beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, p1, p2, m1, m2, c1, c2)
+function dy = SEIAHDR(~, y, beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, p1, p2, m1, m2, c1, c2)
     dy = zeros(12, 1); % Store the derivatives
     x1 = 0.1 * (0.4 * y(4) + 0.8 * y(6)) + 0.2 * ((0.6) *(0.6) * y(4) + (0.2) * y(6));
     x2 = x1;
@@ -93,7 +93,7 @@ plot(sim_t, sim_I1, 'linewidth',1);
 plot(sim_t, sim_H1, 'linewidth',1);
 plot(sim_t, sim_D1, 'linewidth',1);
 plot(sim_t, sim_R, 'linewidth', 1);
-legend({'S(t)','E1(t)','A1(t)','I1(t)','H1(t)','D1(t)','R(t)'},'FontSize',8)
+legend({'S','E_1','A_1','I_1','H_1','D_1','R'},'FontSize',8)
 title('Spread of Existing Strain','FontSize', 12)
 xlabel('Time (days)','FontSize',12);
 ylabel('People (millions)','FontSize',12);
@@ -107,18 +107,18 @@ plot(sim_t, sim_I2, 'linewidth',1);
 plot(sim_t, sim_H2, 'linewidth',1);
 plot(sim_t, sim_D2, 'linewidth',1);
 plot(sim_t, sim_R, 'linewidth',1);
-legend({'S(t)','E2(t)','A2(t)','I2(t)','H2(t)','D2(t)','R(t)'},'FontSize',8)
-title('Spread of Vaccine Strain','FontSize', 12)
+legend({'S','E_2','A_2','I_2','H_2','D_2','R'},'FontSize',8)
+title('Spread of "Patient 0" Strain','FontSize', 12)
 xlabel('Time (days)','FontSize',12);
-ylabel('People (million)','FontSize',12);
+ylabel('People (millions)','FontSize',12);
 
 figure(3)
 plot(sim_t, sim_D1,'linewidth', 1);
 hold on
 plot(sim_t, sim_D2,'linewidth', 1);
 plot(sim_t, sim_D1 + sim_D2, 'linewidth', 1);
-legend({'Existing Strain Deaths','"Patient 0" Strain Deaths','Total Deaths'},'FontSize',8)
-title('Death Comparison','FontSize', 12)
+legend({'Existing Strain','"Patient 0" Strain','Total Deaths'},'FontSize',8)
+title('Cumulative Death Comparison','FontSize', 12)
 xlabel('Time (days)','FontSize',12);
 ylabel('People (millions)','FontSize',12);
 end
