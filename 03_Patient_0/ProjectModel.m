@@ -1,65 +1,68 @@
 function ProjectModel
-clear all
+clear
 close all
 clc
 
 % Declare rates
-beta1 = .05;
-beta2 = .05;
-alpha1 = .03;
-alpha2 = .04;
-eta1 = .05;
-eta2 = .05;
-sigma1 = .05;
-sigma2 = .05;
-gamma1 = .04;
-gamma2 = .05;
+beta1 = .005; %Rate of exposure
+beta2 = beta1 * 3;
+alpha1 = .125; %Rate of recovery
+alpha2 = .125;
+eta1 = .5; %Rate of infection
+eta2 = .5;
+sigma1 = .0746; %Rate of recovery/hospitalization from I class
+sigma2 = .0746;
+gamma1 = .1163; % Rate of death
+gamma2 = .1163;
 
 % Declare proportions
-p1 = .5;
-p2 = .5;
-m1 = .5;
-m2 = .5;
-c1 = .5;
-c2 = .5;
+p1 = .65;
+p2 = .65;
+m1 = .07;
+m2 = m1 / 3;
+c1 = .0323;
+c2 = c1 / 3;
 
 % Declare initial size of classes
-S = 300;
-E1 = 10;
-E2 = 100;
-I1 = 10;
-I2 = 10;
-A1 = 10;
-A2 = 10;
-H1 = 10;
-H2 = 10;
-D1 = 10;
-D2 = 10;
-R = 0;
+S = 315;
+E1 = .680;
+E2 = 0;
+I1 = 3.12;
+I2 = 10000/1000000;
+A1 = 1.79;
+A2 = 0;
+H1 = .104;
+H2 = 0;
+D1 = .313;
+D2 = 0;
+R = 11;
 
 % Delare time
-T = 60;
+T = 120;
 
 % Define the model
-function dy = SEIAHDR(t, y, beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, p1, p2, m1, m2, c1, c2)
+function dy = SEIAHDR(~, y, beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, p1, p2, m1, m2, c1, c2)
     dy = zeros(12, 1); % Store the derivatives
-    x1 = .5; % x1 term
-    x2 = .5; % x2 term
-    %dy(1) = (-beta1 * x1 * y(1)) - (beta2 * x2); % S term
-    dy(1) = (-beta1 * y(1) * y(6)) + (-beta2 * y(1) * y(7)); 
-    %dy(2)  = (beta1 * x1 * y(1)) - (eta1 * y(2)); % E1 term
-    dy(2)  = (beta1 * y(6) * y(1)) - (eta1 * y(2)); % E1 term
-    %dy(3) = (beta2 * x2 * y(1)) - (eta2 * y(3)); % E2 term
-    dy(3) = (beta2 * y(7) * y(1)) - (eta2 * y(3)); % E2 term
+    x1 = 0.1 * (0.4 * y(4) + 0.8 * y(6)) + 0.2 * ((0.6) *(0.6) * y(4) + (0.2) * y(6));
+    x2 = x1;
+    
+    dy(1) = (-beta1 * y(1) * x1) + (-beta2 * y(1) * x2);
+    dy(2)  = (beta1 * x1 * y(1)) - (eta1 * y(2)); % E1 term
+    dy(3) = (beta2 * x2 * y(1)) - (eta2 * y(3)); % E2 term
+    
+    
+    %dy(1) = (-beta1 * y(1) * y(6)) + (-beta2 * y(1) * y(7)); 
+    %dy(2)  = (beta1 * y(6) * y(1)) - (eta1 * y(2)); % E1 term
+    %dy(3) = (beta2 * y(7) * y(1)) - (eta2 * y(3)); % E2 term
     dy(4) = (eta1 * (1 - p1) * y(2)) - (alpha1 * y(4)); % A1 term
     dy(5) = (eta2 * (1 - p2) * y(3)) - (alpha2 * y(5)); % A2 term
     dy(6) = (p1 * eta1 * y(2)) - (sigma1 * y(6)); % I1 term
     dy(7) = (p2 * eta2 * y(3)) - (sigma2 * y(7)); % I2 term
-    dy(8) = (c1 * sigma1) - (gamma1 * y(8)); % H1 term
-    dy(9) = (c2 * sigma2) - (gamma2 * y(9)); % H2 term
-    dy(10) = m1 * gamma1 * y(10); % D1 term
-    dy(11) = m2 * gamma2 * y(11); % D2 term
-    dy(12) = ((1 - m1) * gamma1 * y(8)) + ((1 - c1) * sigma1 * y(6)) + (alpha1 * y(4)) + ((1 - m2) * gamma2 * y(9)) + ((1 - c2) * sigma2 * y(7)) + alpha2 * y(5); % R term
+    dy(8) = (c1 * sigma1 * y(6)) - (gamma1 * y(8)); % H1 term
+    dy(9) = (c2 * sigma2 * y(7)) - (gamma2 * y(9)); % H2 term
+    dy(10) = m1 * gamma1 * y(8); % D1 term
+    dy(11) = m2 * gamma2 * y(9); % D2 term
+    dy(12) = ((1 - m1) * gamma1 * y(8)) + ((1 - c1) * sigma1 * y(6)) + (alpha1 * y(4)) + ((1 - m2) * gamma2 * y(9)) + ((1 - c2) * sigma2 * y(7)) + (alpha2 * y(5)); % R term
 
 end
 
@@ -82,16 +85,18 @@ sim_R = sim_y(:,12);
 % Plot and label
 figure; hold on;
 
-%% Test run
 figure(1)
-plot(sim_t, sim_S, 'linewidth', 1);
-plot(sim_t, sim_E1, 'linewidth', 1);
+plot(sim_t, sim_S, 'linewidth',1);
+plot(sim_t, sim_E1, 'linewidth',1);
 plot(sim_t, sim_A1, 'linewidth',1);
-plot(sim_t, sim_I1, 'linewidth', 1);
-plot(sim_t, sim_H1, 'linewidth', 1);
-plot(sim_t, sim_D1, 'linewidth', 1);
+plot(sim_t, sim_I1, 'linewidth',1);
+plot(sim_t, sim_H1, 'linewidth',1);
+plot(sim_t, sim_D1, 'linewidth',1);
 plot(sim_t, sim_R, 'linewidth', 1);
-legend({'S(t)','E1(t)','A1(t)','I1(t)','H1(t)','D1(t)','R(t)'},'FontSize',8)
+legend({'S','E_1','A_1','I_1','H_1','D_1','R'},'FontSize',8)
+title('Spread of Existing Strain','FontSize', 12)
+xlabel('Time (days)','FontSize',12);
+ylabel('People (millions)','FontSize',12);
 
 figure(2)
 plot(sim_t, sim_S, 'linewidth',1);
@@ -102,8 +107,19 @@ plot(sim_t, sim_I2, 'linewidth',1);
 plot(sim_t, sim_H2, 'linewidth',1);
 plot(sim_t, sim_D2, 'linewidth',1);
 plot(sim_t, sim_R, 'linewidth',1);
-legend({'S(t)','E2(t)','A2(t)','I2(t)','H2(t)','D2(t)','R(t)'},'FontSize',8)
-xlabel('Time(days)','FontSize',12);
-ylabel('People','FontSize',12);
+legend({'S','E_2','A_2','I_2','H_2','D_2','R'},'FontSize',8)
+title('Spread of "Patient 0" Strain','FontSize', 12)
+xlabel('Time (days)','FontSize',12);
+ylabel('People (millions)','FontSize',12);
+
+figure(3)
+plot(sim_t, sim_D1,'linewidth', 1);
+hold on
+plot(sim_t, sim_D2,'linewidth', 1);
+plot(sim_t, sim_D1 + sim_D2, 'linewidth', 1);
+legend({'Existing Strain','"Patient 0" Strain','Total Deaths'},'FontSize',8)
+title('Cumulative Death Comparison','FontSize', 12)
+xlabel('Time (days)','FontSize',12);
+ylabel('People (millions)','FontSize',12);
 end
 
