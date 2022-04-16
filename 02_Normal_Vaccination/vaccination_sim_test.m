@@ -17,10 +17,11 @@ clear all; close all; clc;
 %% SCENARIO DATA INITIALIZATION
 
 % parameter values
+% beta = 0.25;
 beta = 0.01;
-r = 0.6;
-m = 0.25;
-
+r = 0.7;
+m = 0.073;
+% m = 0.043;
 %% COMPUTATION
 % [T,P,S,E,A,I,R,H,D,W,V]
 
@@ -31,18 +32,32 @@ I = results(:,6);
 R = results(:,7);
 H = results(:,8);
 D = results(:,9);
-V = results(:,11);
+W = results(:,10);
+F = results(:,12);
 
 %% OUTPUT
-figure; clf; hold on;
+figure(1); clf; hold on;
 days = length(SandP)-1;
 plot(T,SandP,'LineWidth',1.7)
 plot(T,H,'LineWidth',1.7)
 plot(T,I,'LineWidth',1.7)
 plot(T,R,'LineWidth',1.7)
 plot(T,D,'LineWidth',1.7)
-plot(T,V,'LineWidth',1.7)
+plot(T,F,'LineWidth',1.7)
 xlabel('days')
 ylabel('people')
-legend('SandP','H','I','R','D','V')
+legend('SandP','H','I','R','D','F')
 
+figure(2); clf; hold on;
+days = length(SandP)-1;
+plot(T,I,'LineWidth',1.7)
+xlabel('days')
+ylabel('people')
+legend('I')
+
+figure(3); clf; hold on;
+days = length(SandP)-1;
+plot(T,D,'LineWidth',1.7)
+xlabel('days')
+ylabel('people')
+legend('D')
