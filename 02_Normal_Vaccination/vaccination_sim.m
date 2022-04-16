@@ -122,7 +122,6 @@ end
         X = f_c*(c_a*A + c_i*I) + delta*(f_a*(1-c_a)*A + (1-c_i)*I);
         phi = (V*K)/(K+W);
         F = y(11);
-        disp(phi);
     % compute derivatives
         Pp = -beta*X*P - phi*P;
         Sp = -beta*X*S;

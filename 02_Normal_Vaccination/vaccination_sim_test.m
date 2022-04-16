@@ -18,12 +18,12 @@ clear all; close all; clc;
 
 % parameter values
 % beta = 0.25;
-beta = 0.01;
+beta = 0.005;
 r = 0.7;
 m = 0.073;
 % m = 0.043;
 %% COMPUTATION
-% [T,P,S,E,A,I,R,H,D,W,V]
+% [T,P,S,E,A,I,R,H,D,W,V,F]
 
 results = vaccination_sim(beta,r,m);
 T = results(:,1);
