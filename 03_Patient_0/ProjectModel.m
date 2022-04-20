@@ -5,7 +5,7 @@ clc
 
 % Declare rates
 beta1 = .005; %Rate of exposure
-beta2 = beta1 * 3;
+beta2 = beta1 * 4;
 alpha1 = .125; %Rate of recovery
 alpha2 = .125;
 eta1 = .5; %Rate of infection
@@ -19,9 +19,9 @@ gamma2 = .1163;
 p1 = .65;
 p2 = .65;
 m1 = .07;
-m2 = m1 / 3;
-c1 = .0323;
-c2 = c1 / 3;
+m2 = m1 / 4;
+c1 = .011;
+c2 = c1 / 4;
 
 % Declare initial size of classes
 S = 315;
@@ -108,7 +108,7 @@ plot(sim_t, sim_H2, 'linewidth',1);
 plot(sim_t, sim_D2, 'linewidth',1);
 plot(sim_t, sim_R, 'linewidth',1);
 legend({'S','E_2','A_2','I_2','H_2','D_2','R'},'FontSize',8)
-title('Spread of "Patient 0" Strain','FontSize', 12)
+title('Spread of "Patient Zero" Strain','FontSize', 12)
 xlabel('Time (days)','FontSize',12);
 ylabel('People (millions)','FontSize',12);
 
@@ -121,5 +121,16 @@ legend({'Existing Strain','"Patient 0" Strain','Total Deaths'},'FontSize',8)
 title('Cumulative Death Comparison','FontSize', 12)
 xlabel('Time (days)','FontSize',12);
 ylabel('People (millions)','FontSize',12);
+
+figure(4)
+plot(sim_t, sim_H1, 'linewidth', 1);
+hold on
+plot(sim_t, sim_H2, 'linewidth', 1);
+plot(sim_t, sim_H1 + sim_H2, 'linewidth', 1);
+legend({'Existing Strain','"Patient 0" Strain','Total Hospitalization'},'FontSize',8)
+title('Cumulative Hospitilization Comparison','FontSize', 12)
+xlabel('Time (days)','FontSize',12);
+ylabel('People (millions)','FontSize',12);
+
 end
 
