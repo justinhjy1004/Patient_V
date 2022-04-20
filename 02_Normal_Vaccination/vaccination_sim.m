@@ -1,4 +1,4 @@
-function [results] = vaccination_sim(beta, r, m)
+function [results] = vaccination_sim(beta, r, m, c)
 % VACCINATION_SIM simulates the distribution of vaccination using 
 % a model derived from Dr. Glenn Ledder
 %
@@ -18,7 +18,7 @@ function [results] = vaccination_sim(beta, r, m)
 
 %% Parameters of Model
 p = 0.65; % percentage that becomes infective
-c = 0.0323; % percentage that becomes hospitalized
+% c = 0.0323; % percentage that becomes hospitalized
 delta = 0.2; % Control
 f_a = 0.6; % infectivity of A
 f_c = 0.1; % infectivity of I

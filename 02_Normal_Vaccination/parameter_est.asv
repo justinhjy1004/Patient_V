@@ -44,7 +44,7 @@ for hosp = 1:length(hosps)
     max_hosp(hosp) = max(H);
 end
 
-error = abs(max_hosp - (max(hosp_actual)/1000000));
+error = abs(max_hosp - ());
 [c,i] = min(error);
 hosp_rate = hosps(i);
 
@@ -59,10 +59,9 @@ for m = 1:length(ms)
     results = vaccination_sim(beta,r,ms(m),hosp_rate);
     D = results(:,9);
     % Max Iterations
-    max_deaths(m) = max(D);
+    max_deaths = max(D);
 end
 
-error = abs(max_deaths - max(deaths));
 
 [c,i] = min(error);
 m = ms(i);
