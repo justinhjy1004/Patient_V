@@ -1,10 +1,5 @@
-function ProjectModel
-clear
-close all
-clc
-
+function [sim_t, sim_y] = patient_zero_fx(M)
 % Declare rates
-M = 4;
 beta1 = .005; %Rate of exposure
 beta2 = beta1 * M;
 alpha1 = .125; %Rate of recovery
@@ -82,56 +77,4 @@ sim_H2 = sim_y(:,9);
 sim_D1 = sim_y(:,10);
 sim_D2 = sim_y(:,11);
 sim_R = sim_y(:,12);
-
-% Plot and label
-figure; hold on;
-
-figure(1)
-plot(sim_t, sim_S, 'linewidth',1);
-plot(sim_t, sim_E1, 'linewidth',1);
-plot(sim_t, sim_A1, 'linewidth',1);
-plot(sim_t, sim_I1, 'linewidth',1);
-plot(sim_t, sim_H1, 'linewidth',1);
-plot(sim_t, sim_D1, 'linewidth',1);
-plot(sim_t, sim_R, 'linewidth', 1);
-legend({'S','E_1','A_1','I_1','H_1','D_1','R'},'FontSize',8)
-title('Spread of Existing Strain','FontSize', 12)
-xlabel('Time (days)','FontSize',12);
-ylabel('People (millions)','FontSize',12);
-
-figure(2)
-plot(sim_t, sim_S, 'linewidth',1);
-hold on
-plot(sim_t, sim_E2, 'linewidth',1);
-plot(sim_t, sim_A2, 'linewidth',1);
-plot(sim_t, sim_I2, 'linewidth',1);
-plot(sim_t, sim_H2, 'linewidth',1);
-plot(sim_t, sim_D2, 'linewidth',1);
-plot(sim_t, sim_R, 'linewidth',1);
-legend({'S','E_2','A_2','I_2','H_2','D_2','R'},'FontSize',8)
-title('Spread of "Patient Zero" Strain','FontSize', 12)
-xlabel('Time (days)','FontSize',12);
-ylabel('People (millions)','FontSize',12);
-
-figure(3)
-plot(sim_t, sim_D1,'linewidth', 1);
-hold on
-plot(sim_t, sim_D2,'linewidth', 1);
-plot(sim_t, sim_D1 + sim_D2, 'linewidth', 1);
-legend({'Existing Strain','"Patient 0" Strain','Total Deaths'},'FontSize',8)
-title('Cumulative Death Comparison','FontSize', 12)
-xlabel('Time (days)','FontSize',12);
-ylabel('People (millions)','FontSize',12);
-
-figure(4)
-plot(sim_t, sim_H1, 'linewidth', 1);
-hold on
-plot(sim_t, sim_H2, 'linewidth', 1);
-plot(sim_t, sim_H1 + sim_H2, 'linewidth', 1);
-legend({'Existing Strain','"Patient 0" Strain','Total Hospitalization'},'FontSize',8)
-title('Cumulative Hospitilization Comparison','FontSize', 12)
-xlabel('Time (days)','FontSize',12);
-ylabel('People (millions)','FontSize',12);
-
 end
-
