@@ -81,7 +81,9 @@ ylabel('People (millions)','FontSize',12);
 figure(2)
 plot(Ms, Hs,'linewidth', 1);
 hold on
+plot(Ms, H1s,'linewidth',1);
 plot(Ms, H2s,'linewidth',1);
+legend({'Total Hospitalization','Existing Strain'},'FontSize',8)
 legend({'Total Hospitalization','Patient Zero Strain'},'FontSize',8)
 title('Maximum Hospitalized at a Given Time','FontSize', 12)
 xlabel('Vaccine Multiplier','FontSize',12);
