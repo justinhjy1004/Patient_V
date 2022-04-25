@@ -65,6 +65,8 @@ end
 % Use Matlab function to calculate the solutions
 [sim_t, sim_y] = ode45(@(t,y)(SEIAHDR(t,y,beta1, beta2, eta1, eta2, sigma1, sigma2, gamma1, gamma2, alpha1, alpha2, p1, p2, m1, m2, c1, c2)), + ...
     [0 T],[S;E1;E2;A1;A2;I1;I2;H1;H2;D1;D2;R]);
+
+
 sim_S = sim_y(:,1);
 sim_E1 = sim_y(:,2);
 sim_E2 = sim_y(:,3);

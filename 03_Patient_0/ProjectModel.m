@@ -4,7 +4,7 @@ close all
 clc
 
 % Declare rates
-M = 4;
+M = 10;
 beta1 = .005; %Rate of exposure
 beta2 = beta1 * M;
 alpha1 = .125; %Rate of recovery
