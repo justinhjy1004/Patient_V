@@ -22,7 +22,7 @@ p2 = .65;
 m1 = .07;
 m2 = m1 / M;
 c1 = .011;
-c2 = c1 / M;
+c2 = c1;
 
 % Declare initial size of classes
 S = 315;
