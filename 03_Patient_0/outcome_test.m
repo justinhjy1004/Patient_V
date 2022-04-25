@@ -1,4 +1,4 @@
-clear all; close all; clc;
+clear; close all; clc;
 
 M = 2.0;
 
@@ -69,25 +69,36 @@ for i = 1:length(Ms)
 end
 
 figure(1)
-plot(Ms, Is,'linewidth', 1);
+plot(Ms, Is,'linewidth',1);
+hold on
+plot(Ms, I1s,'linewidth',1);
+plot(Ms, I2s,'linewidth',1);
+legend({'Total Infections','Existing Strain','Patient Zero Strain'},'FontSize',8)
 title('Maximum Infected at a Given Time','FontSize', 12)
 xlabel('Vaccine Multiplier','FontSize',12);
 ylabel('People (millions)','FontSize',12);
 
 figure(2)
 plot(Ms, Hs,'linewidth', 1);
+hold on
+plot(Ms, H2s,'linewidth',1);
+legend({'Total Hospitalization','Patient Zero Strain'},'FontSize',8)
 title('Maximum Hospitalized at a Given Time','FontSize', 12)
 xlabel('Vaccine Multiplier','FontSize',12);
 ylabel('People (millions)','FontSize',12);
 
 figure(3)
 plot(Ms, Ds,'linewidth', 1);
+hold on
+plot(Ms,D1s,'linewidth',1);
+plot(Ms,D2s,'linewidth',1);
+legend({'Total Deaths','Existing Strain','Patient Zero Strain'},'FontSize',8)
 title('Total Death','FontSize', 12)
 xlabel('Vaccine Multiplier','FontSize',12);
 ylabel('People (millions)','FontSize',12);
 
 figure(4)
-plot(Ms, Ts,'linewidth', 1);
-title('Infected at <1%','FontSize', 12)
+plot(Ms, Ts,'.');
+title('Infected at <1% of Population','FontSize', 12)
 xlabel('Vaccine Multiplier','FontSize',12);
 ylabel('Days','FontSize',12);
