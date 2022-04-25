@@ -19,8 +19,14 @@ R = y(:,12);
 
 Ms = [2:0.01:10];
 Is = [1:length(Ms)];
+I1s = [1:length(Ms)];
+I2s = [1:length(Ms)];
 Hs = [1:length(Ms)];
+H1s = [1:length(Ms)];
+H2s = [1:length(Ms)];
 Ds = [1:length(Ms)];
+D1s = [1:length(Ms)];
+D2s = [1:length(Ms)];
 Ts = [1:length(Ms)];
 
 for i = 1:length(Ms)
@@ -46,8 +52,14 @@ for i = 1:length(Ms)
     End_Day = find((I1 + I2) <= 3);
 
     Is(i) = I_max;
+    I1s(i) = max(I1);
+    I2s(i) = max(I2);
     Hs(i) = H_max;
+    H1s(i) = max(H1);
+    H2s(i) = max(H2);
     Ds(i) = D_tot;
+    D1s(i) = max(D1);
+    D2s(i) = max(D2);
     Ts(i) = End_Day(1);
 
     %X = ['Multiplier', Ms(i), 'Length', length(R), 'I_max', I_max, 'H_max', H_max, 'D_tot', D_tot];
