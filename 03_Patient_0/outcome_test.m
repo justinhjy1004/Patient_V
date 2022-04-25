@@ -1,4 +1,4 @@
-clear all; close all; clc;
+clear; close all; clc;
 
 M = 2.0;
 
