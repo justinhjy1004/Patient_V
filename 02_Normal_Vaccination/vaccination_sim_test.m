@@ -20,7 +20,7 @@ clear all; close all; clc;
 % beta = 0.25;
 beta = 0.005;
 r = 0.7;
-m = 0.093;
+m = 0.176;
 c = 0.011;
 % m = 0.043;
 %% COMPUTATION
