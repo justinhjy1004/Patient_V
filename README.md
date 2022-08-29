@@ -17,13 +17,6 @@ This model assumes that we have a hypothetical technology that allows us to crea
 3. **Comparison of Outcomes** <br>
 Using different parameters of the models, we would then simulate the outcomes of both models to compare and contrast the final outcome in terms of death rates, hospitalization rates and length of pandemic that with the two different strategies.
 
-4. **Economic Tradeoff and Cost** <br>
-Using the outcomes of the models, we would try to estimate the costs of each of the vaccination strategy. This includes but limited to
-* Vaccination costs (both development and distribution)
-* Length of pandemic (costs associated with lockdowns and school closures)
-* Lost work hours as a result of infection
-* Number of Deaths
-* Hospitalization costs
 
 ### 01 COVID19 Ledder
 This is the **SEAIHRD** Epidemic Model developed by Dr. Glenn Ledder to study the Covid19 epidemic in the initial rollout of vaccination and the onset of the Delta Variant. Our baseline model is going to be largely based on the following code.
@@ -32,4 +25,4 @@ This is the **SEAIHRD** Epidemic Model developed by Dr. Glenn Ledder to study th
 This is Vaccination Model that we developed that complements the Patient Zero Vaccination Model, with realistic distribution of vaccination and the resulting outcomes such as deaths, hospitalization etc.
 
 ### 03 Patient 0
-This is the Patient Zero vaccination model as described in the paper below.
+This is the Patient Zero vaccination model as described in the paper Patient_Zero.pdf
